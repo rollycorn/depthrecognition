@@ -1,0 +1,69 @@
+name: "17031901Net"
+layer {
+    name: "data"
+    type: "Input"
+    top: "data"
+    input_param { shape: { dim: 1 dim: 3 dim: 28 dim: 28 } }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 20
+    kernel_size: 5
+    stride: 1
+    pad_h: 2
+    pad_w: 2
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "nonlinear1"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "nonlinear1"
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "nonlinear1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 1
+    kernel_size: 5
+    stride: 1
+    pad_h: 2
+    pad_w: 2
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "nonlinear2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "nonlinear2"
+}
